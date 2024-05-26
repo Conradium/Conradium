@@ -1,5 +1,6 @@
 ## Hi there 👋 - [I'm Conradium](https://conradium.github.io/Conradium/)
 
+This are my hobby side time projects.
 <!--
 **Conradium/Conradium** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
 
