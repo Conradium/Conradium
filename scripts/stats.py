@@ -39,10 +39,10 @@ query($login: String!) {
 SKIP_LANGS = {"Jupyter Notebook"}
 
 
-def fetch(login, token):
+def gql(query, variables, token):
     req = urllib.request.Request(
         "https://api.github.com/graphql",
-        data=json.dumps({"query": QUERY, "variables": {"login": login}}).encode(),
+        data=json.dumps({"query": query, "variables": variables}).encode(),
         headers={"Authorization": f"bearer {token}", "Content-Type": "application/json"},
     )
     with urllib.request.urlopen(req, timeout=30) as r:
@@ -50,6 +50,19 @@ def fetch(login, token):
     if "errors" in data:
         raise SystemExit(f"GraphQL error: {data['errors']}")
     return data["data"]["user"]
+
+
+def fetch(login, token):
+    user = gql(QUERY, {"login": login}, token)
+    # Commit search covers every public repo and branch, all time; the GraphQL
+    # contribution counts only see default branches.
+    req = urllib.request.Request(
+        f"https://api.github.com/search/commits?q=author:{login}&per_page=1",
+        headers={"Authorization": f"bearer {token}", "Accept": "application/vnd.github+json"},
+    )
+    with urllib.request.urlopen(req, timeout=30) as r:
+        user["commits"] = json.load(r)["total_count"]
+    return user
 
 
 def summarise(user):
@@ -85,6 +98,7 @@ def summarise(user):
         shares.append(("Other", rest))
 
     return {
+        "commits": user["commits"],
         "contributions": cal["totalContributions"],
         "streak": streak,
         "longest": longest,
@@ -94,9 +108,9 @@ def summarise(user):
 
 
 TILES = [
-    ("contributions", "Contributions", "last 12 months", LAVENDER, INK),
-    ("streak", "Current streak", "days in a row", BUTTER, INK),
-    ("longest", "Longest streak", "days, past year", MINT, INK),
+    ("commits", "Commits", "all time", LAVENDER, INK),
+    ("contributions", "Contributions", "last 12 months", BUTTER, INK),
+    ("streak", "Current streak", "longest: {longest} days", MINT, INK),
     ("repos", "Public repos", "and counting", AMETHYST, CREAM),
 ]
 
