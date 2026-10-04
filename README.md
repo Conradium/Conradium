@@ -1,71 +1,32 @@
-<h2 align="left">Hi 👋! My name is Ben and I'm a student, from Tokyo International University</h2>
+<!-- Panels are drawn by scripts/build.py (static) and scripts/stats.py (daily, via Actions). -->
 
-###
+<a href="https://conradium.my.id"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/hero-dark.svg"><img src="assets/hero-light.svg" width="100%" alt="Benedictus Sebastian, software engineer and business development. I build systems that hold up: data pipelines, edge backends and the products on top of them. Based in Bogor, Indonesia; studied at TIU, Tokyo; speaks Indonesian, English and Japanese."></picture></a>
 
-<div align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=Conradium&hide_title=false&hide_rank=false&show_icons=true&include_all_commits=true&count_private=true&disable_animations=false&theme=dracula&locale=en&hide_border=false" height="150" alt="stats graph"  />
-  <img src="https://github-readme-stats.vercel.app/api/top-langs?username=Conradium&locale=en&hide_title=false&layout=compact&card_width=320&langs_count=5&theme=dracula&hide_border=false" height="150" alt="languages graph"  />
-</div>
+<br>
 
-###
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/head-work-dark.svg"><img src="assets/head-work-light.svg" width="100%" alt="[01] Selected work: things I've shipped."></picture>
 
-<div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg" height="30" alt="python logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" height="30" alt="html5 logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" height="30" alt="css3 logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/anaconda/anaconda-original.svg" height="30" alt="anaconda logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/postgresql/postgresql-original.svg" height="30" alt="postgresql logo"  />
-</div>
+<p><a href="https://himotoki.web.app/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-himotoki-dark.svg"><img src="assets/work-himotoki-light.svg" width="49%" alt="Himotoki: a Japanese–English dictionary for learners, with handwriting search, sentence breakdowns and flashcards. React, Vite, Firebase."></picture></a><a href="https://snacktrack.conradium.my.id"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-snacktrack-dark.svg"><img src="assets/work-snacktrack-light.svg" width="49%" alt="SnackTrack: a marketplace for small snack sellers in Indonesia with weekly sales forecasts. Python, XGBoost, FastAPI, Supabase, React."></picture></a></p>
+<p><a href="https://aimflicks-beta.vercel.app"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-aimflicks-dark.svg"><img src="assets/work-aimflicks-light.svg" width="49%" alt="AimFlicks: a browser-based 3D aim trainer with parties and weekly leaderboards. React, Three.js, Cloudflare Workers, Durable Objects."></picture></a><a href="https://conradium.my.id/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/work-hirepassport-dark.svg"><img src="assets/work-hirepassport-light.svg" width="49%" alt="HirePassport: an AI hiring platform built at the SDGs to Startups Hackathon. Next.js, Python, LLM agents."></picture></a></p>
 
-###
+<a href="https://conradium.my.id/#work"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/more-work-dark.svg"><img src="assets/more-work-light.svg" width="100%" alt="More work: nightbot-to-discord, a Cloudflare Worker bridging Nightbot to Discord webhooks; Copiya, a full-stack e-commerce platform; Chromaticas, a VTuber agency landing page; RslStore, a Discord shop ticket bot."></picture></a>
 
-<img align="right" height="150" src="https://media.tenor.com/g0HVbKOd46wAAAAj/bubu-bubu-dudu.gif"  />
+<br>
 
-###
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/head-toolbox-dark.svg"><img src="assets/head-toolbox-light.svg" width="100%" alt="[02] Toolbox: what's in the toolbox?"></picture>
 
-<div align="left">
-  <a href="https://www.instagram.com/just_bndct/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Instagram&logo=instagram&label=&color=E4405F&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="instagram logo"  />
-  </a>
-  <a href="https://discordapp.com/users/326675937749893123" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Discord&logo=discord&label=&color=7289DA&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="discord logo"  />
-  </a>
-  <a href="mailto:leiconrad5@gmail.com?subject=Github%20Visit&body=Hello%20Lei%2C%0AI%20found%20your%20contact%20from%20your%20GitHub%20profile." target="_blank">
-    <img src="https://img.shields.io/static/v1?message=Gmail&logo=gmail&label=&color=D14836&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="gmail logo"  />
-  </a>
-  <a href="https://www.linkedin.com/in/benedictus-sebastian-aria-pratama-205503333/" target="_blank">
-    <img src="https://img.shields.io/static/v1?message=LinkedIn&logo=linkedin&label=&color=0077B5&logoColor=white&labelColor=&style=for-the-badge" height="35" alt="linkedin logo"  />
-  </a>
-</div>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/toolbox-dark.svg"><img src="assets/toolbox-light.svg" width="100%" alt="Data and ML: Python, Pandas, NumPy, XGBoost, scikit-learn. Backend and edge: Cloudflare Workers, D1, R2, Durable Objects, FastAPI, Docker, Supabase, PostgreSQL, Redis. Frontend and 3D: React, TypeScript, Next.js, Three.js, Vue, Tailwind CSS. Product and security: HMAC signing, rate limiting, payment verification, PRDs, Figma."></picture>
 
-###
+<br>
 
-<div align="left">
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/premierepro/premierepro-plain.svg" height="40" alt="premierepro logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/aftereffects/aftereffects-original.svg" height="40" alt="aftereffects logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/photoshop/photoshop-plain.svg" height="40" alt="photoshop logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/vscode/vscode-original.svg" height="40" alt="vscode logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/filezilla/filezilla-plain.svg" height="40" alt="filezilla logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/chrome/chrome-original.svg" height="40" alt="chrome logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/googlecloud/googlecloud-original.svg" height="40" alt="googlecloud logo"  />
-  <img width="12" />
-  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/wordpress/wordpress-original.svg" height="40" alt="wordpress logo"  />
-</div>
+<picture><source media="(prefers-color-scheme: dark)" srcset="assets/head-activity-dark.svg"><img src="assets/head-activity-light.svg" width="100%" alt="[03] Activity: still shipping."></picture>
 
-###
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Conradium/Conradium/output/stats-dark.svg"><img src="https://raw.githubusercontent.com/Conradium/Conradium/output/stats-light.svg" width="100%" alt="GitHub activity: contributions in the last year, streaks, public repos and top languages."></picture>
 
-<br clear="both">
+<picture><source media="(prefers-color-scheme: dark)" srcset="https://raw.githubusercontent.com/Conradium/Conradium/output/snake-dark.svg"><img src="https://raw.githubusercontent.com/Conradium/Conradium/output/snake-light.svg" width="100%" alt="A snake eating my contribution graph."></picture>
 
-<img src="https://raw.githubusercontent.com/Conradium/Conradium/output/snake.svg" alt="Snake animation" />
+<br>
 
-###
+<a href="mailto:benedictus.sebastian5@gmail.com"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/contact-dark.svg"><img src="assets/contact-light.svg" width="100%" alt="[04] Contact: let's build something that holds up. Email benedictus.sebastian5@gmail.com."></picture></a>
+
+<p><a href="https://conradium.my.id"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-website-dark.svg"><img src="assets/btn-website-light.svg" alt="Website: conradium.my.id"></picture></a><a href="https://www.linkedin.com/in/benedictus-sebastian-aria-pratama-205503333/"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-linkedin-dark.svg"><img src="assets/btn-linkedin-light.svg" alt="LinkedIn"></picture></a><a href="https://x.com/benedictus_seb"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-x-dark.svg"><img src="assets/btn-x-light.svg" alt="X"></picture></a><a href="https://discord.com/users/326675937749893123"><picture><source media="(prefers-color-scheme: dark)" srcset="assets/btn-discord-dark.svg"><img src="assets/btn-discord-light.svg" alt="Discord"></picture></a></p>
