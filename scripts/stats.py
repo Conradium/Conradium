@@ -23,9 +23,21 @@ query($login: String!) {
         weeks { contributionDays { contributionCount date } }
       }
     }
-    repositories(ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC, first: 100) {
-      totalCount
+    repositories(ownerAffiliations: OWNER, isFork: false, privacy: PUBLIC) { totalCount }
+  }
+}
+"""
+
+# Every repo the token can see that the user owns or works on, private ones included
+# when the token has repo scope.
+REPOS = """
+query($login: String!, $after: String) {
+  user(login: $login) {
+    repositories(ownerAffiliations: [OWNER, COLLABORATOR, ORGANIZATION_MEMBER], isFork: false,
+                 first: 100, after: $after) {
+      pageInfo { hasNextPage endCursor }
       nodes {
+        isPrivate
         languages(first: 10, orderBy: {field: SIZE, direction: DESC}) {
           edges { size node { name } }
         }
@@ -36,6 +48,7 @@ query($login: String!) {
 """
 
 
+# Notebook JSON is mostly output cells, so it says little about the code.
 SKIP_LANGS = {"Jupyter Notebook"}
 
 
@@ -54,6 +67,13 @@ def gql(query, variables, token):
 
 def fetch(login, token):
     user = gql(QUERY, {"login": login}, token)
+    user["all_repos"], after = [], None
+    while True:
+        page = gql(REPOS, {"login": login, "after": after}, token)["repositories"]
+        user["all_repos"] += page["nodes"]
+        if not page["pageInfo"]["hasNextPage"]:
+            break
+        after = page["pageInfo"]["endCursor"]
     # Commit search covers every repo and branch, all time. The workflow's own
     # token only sees public repos; a STATS_TOKEN secret with repo scope adds private ones.
     def count(q):
@@ -86,14 +106,14 @@ def summarise(user):
         run = run + 1 if d["contributionCount"] > 0 else 0
         longest = max(longest, run)
 
-    repos = user["repositories"]
-    # Notebook JSON is mostly output cells, so its byte count drowns out real code.
+    # Each repo counts once, split by its own language mix. Raw bytes would let one
+    # repo with vendored C or a committed JS bundle outweigh everything else.
     langs = {}
-    for node in repos["nodes"]:
-        for edge in node["languages"]["edges"]:
-            if edge["node"]["name"] in SKIP_LANGS:
-                continue
-            langs[edge["node"]["name"]] = langs.get(edge["node"]["name"], 0) + edge["size"]
+    for node in user["all_repos"]:
+        edges = [e for e in node["languages"]["edges"] if e["node"]["name"] not in SKIP_LANGS]
+        size = sum(e["size"] for e in edges)
+        for e in edges:
+            langs[e["node"]["name"]] = langs.get(e["node"]["name"], 0) + e["size"] / size
     total = sum(langs.values()) or 1
     top = sorted(langs.items(), key=lambda kv: -kv[1])
     shares = [(name, size / total) for name, size in top[:5]]
@@ -107,7 +127,9 @@ def summarise(user):
         "contributions": cal["totalContributions"],
         "streak": streak,
         "longest": longest,
-        "repos": repos["totalCount"],
+        "repos": user["repositories"]["totalCount"],
+        "lang_repos": sum(1 for n in user["all_repos"] if n["languages"]["edges"]),
+        "lang_private": any(n["isPrivate"] for n in user["all_repos"]),
         "languages": shares,
     }
 
@@ -137,9 +159,10 @@ def panel(s, t, updated):
 
     # Top languages as one stacked bar
     ly = y + 38 + 28 + 112 + 36
-    b += text(x + pad, ly, "Top languages · by bytes", "mono7", 11, t["accent"], tracking=0.1, upper=True)
+    scope = f"Top languages · across {s['lang_repos']} {'repos, private included' if s['lang_private'] else 'public repos'}"
+    b += text(x + pad, ly, scope, "mono7", 11, t["accent"], tracking=0.1, upper=True)
     bar_y, bar_h, bar_w = ly + 14, 26, w - pad * 2
-    colours = [AMETHYST, LAVENDER, BUTTER, MINT, CREAM, t["fg"]]
+    colours = [AMETHYST, LAVENDER, BUTTER, MINT, CREAM, "#8a7f99"]
     cx = x + pad
     segs = ""
     legend = ""
