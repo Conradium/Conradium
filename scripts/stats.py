@@ -54,14 +54,18 @@ def gql(query, variables, token):
 
 def fetch(login, token):
     user = gql(QUERY, {"login": login}, token)
-    # Commit search covers every public repo and branch, all time; the GraphQL
-    # contribution counts only see default branches.
-    req = urllib.request.Request(
-        f"https://api.github.com/search/commits?q=author:{login}&per_page=1",
-        headers={"Authorization": f"bearer {token}", "Accept": "application/vnd.github+json"},
-    )
-    with urllib.request.urlopen(req, timeout=30) as r:
-        user["commits"] = json.load(r)["total_count"]
+    # Commit search covers every repo and branch, all time. The workflow's own
+    # token only sees public repos; a STATS_TOKEN secret with repo scope adds private ones.
+    def count(q):
+        req = urllib.request.Request(
+            f"https://api.github.com/search/commits?q={q}&per_page=1",
+            headers={"Authorization": f"bearer {token}", "Accept": "application/vnd.github+json"},
+        )
+        with urllib.request.urlopen(req, timeout=30) as r:
+            return json.load(r)["total_count"]
+
+    user["commits"] = count(f"author:{login}")
+    user["commits_scope"] = "all time" if user["commits"] > count(f"author:{login}+is:public") else "public, all time"
     return user
 
 
@@ -99,6 +103,7 @@ def summarise(user):
 
     return {
         "commits": user["commits"],
+        "commits_scope": user["commits_scope"],
         "contributions": cal["totalContributions"],
         "streak": streak,
         "longest": longest,
@@ -108,7 +113,7 @@ def summarise(user):
 
 
 TILES = [
-    ("commits", "Commits", "all time", LAVENDER, INK),
+    ("commits", "Commits", "{commits_scope}", LAVENDER, INK),
     ("contributions", "Contributions", "last 12 months", BUTTER, INK),
     ("streak", "Current streak", "longest: {longest} days", MINT, INK),
     ("repos", "Public repos", "and counting", AMETHYST, CREAM),
@@ -158,7 +163,7 @@ def panel(s, t, updated):
     body = window(x, y, w, h, "github.stats", t, body=b)
     # The "updated" stamp sits on the title bar, so it goes on after the window.
     body += text(x + w - pad, y + 23.5, f"updated {updated}", "mono7", 10.5, CREAM, tracking=0.04, anchor="end", upper=True, extra='opacity=".7"')
-    return svg(W, H, body, f"GitHub activity: {s['contributions']} contributions in the last year, {s['repos']} public repos")
+    return svg(W, H, body, f"GitHub stats: {s['commits']} commits ({s['commits_scope']}), {s['contributions']} contributions in the last year, {s['repos']} public repos")
 
 
 def main():
